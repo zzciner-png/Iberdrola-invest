@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iberdrola - Criar Conta / Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange:#E65100;--green:#28A745;--blue:#007BFF;--petroleum:#2C3E50;
+    --red:#e74c3c;--bg:#F5F6FA;--white:#FFFFFF;
+    --shadow:0 4px 24px rgba(44,62,80,0.10);--radius:18px;--font:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:var(--font);background:var(--bg);min-height:100vh;color:var(--petroleum);}
+
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* LOGIN */
+  .login-bg{background:var(--petroleum);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;}
+  .login-hero{text-align:center;margin-bottom:32px;}
+  .login-hero .logo{font-size:2.6rem;font-weight:900;letter-spacing:-2px;color:white;}
+  .login-hero .logo span{color:var(--orange);}
+  .login-hero p{font-size:.88rem;color:rgba(255,255,255,0.55);margin-top:8px;}
+  .login-card{background:var(--white);border-radius:24px;padding:28px 24px;width:100%;max-width:420px;box-shadow:0 12px 48px rgba(0,0,0,0.25);}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:.73rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px;}
+  .field input{width:100%;background:var(--bg);border:1.5px solid #e8e9ec;border-radius:12px;padding:13px 14px;font-size:.95rem;font-family:var(--font);color:var(--petroleum);outline:none;transition:border-color .2s,box-shadow .2s;}
+  .field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,123,255,0.1);}
+  .field input::placeholder{color:#bbb;}
+  .input-wrap{position:relative;}
+  .input-wrap input{padding-right:44px;}
+  .toggle-pw{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#aaa;}
+  .toggle-pw svg{width:20px;height:20px;fill:currentColor;}
+  .btn-primary{width:100%;padding:15px;background:var(--green);color:white;border:none;border-radius:14px;font-size:1rem;font-weight:800;font-family:var(--font);cursor:pointer;box-shadow:0 4px 16px rgba(40,167,69,0.35);transition:transform .15s,opacity .2s;letter-spacing:-.5px;}
+  .btn-primary:active{transform:scale(.97);}
+  .btn-primary:disabled{background:#ccc;box-shadow:none;cursor:not-allowed;}
+  .register-link{text-align:center;font-size:.85rem;color:#888;margin-top:18px;}
+  .register-link a{color:var(--blue);font-weight:700;text-decoration:none;cursor:pointer;}
+  .spinner{width:20px;height:20px;border:3px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .btn-inner{display:flex;align-items:center;justify-content:center;gap:8px;}
+
+  /* REGISTER */
+  .reg-page{min-height:100vh;background:var(--bg);padding-bottom:40px;}
+  .header{background:var(--petroleum);padding:18px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(44,62,80,0.15);}
+  .back-btn{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:background .15s;}
+  .back-btn:active{background:rgba(255,255,255,0.22);}
+  .back-btn svg{width:20px;height:20px;fill:white;}
+  .header h1{font-size:1.1rem;font-weight:800;letter-spacing:-1px;color:white;}
+  .page-wrap{padding:24px 20px 40px;max-width:480px;margin:0 auto;}
+  .brand-block{text-align:center;margin-bottom:28px;}
+  .brand-block .logo{font-size:2rem;font-weight:900;letter-spacing:-2px;color:var(--petroleum);}
+  .brand-block .logo span{color:var(--orange);}
+  .brand-block p{font-size:.85rem;color:#888;margin-top:6px;}
+  .card{background:var(--white);border-radius:var(--radius);padding:24px 20px;box-shadow:var(--shadow);margin-bottom:16px;}
+  .card h2{font-size:1rem;font-weight:800;letter-spacing:-1px;margin-bottom:18px;color:var(--petroleum);}
+  .btn-orange{width:100%;padding:15px;background:var(--orange);color:white;border:none;border-radius:14px;font-size:1rem;font-weight:800;font-family:var(--font);cursor:pointer;box-shadow:0 4px 16px rgba(230,81,0,0.28);transition:transform .15s,box-shadow .15s;letter-spacing:-.5px;}
+  .btn-orange:active{transform:scale(.97);}
+  .btn-orange:disabled{background:#ccc;box-shadow:none;cursor:not-allowed;}
+  .pw-strength{margin-top:7px;display:flex;gap:4px;align-items:center;}
+  .pw-bar{flex:1;height:4px;border-radius:4px;background:#e8e9ec;transition:background .3s;}
+  .pw-bar.weak{background:#e74c3c;}.pw-bar.medium{background:#f39c12;}.pw-bar.strong{background:var(--green);}
+  .pw-label{font-size:.68rem;font-weight:700;color:#aaa;min-width:44px;text-align:right;}
+
+  /* Referral field */
+  .ref-info{font-size:.7rem;color:#28A745;margin-top:5px;display:flex;align-items:center;gap:6px;}
+  .ref-info svg{width:14px;height:14px;fill:currentColor;}
+
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(44,62,80,0.6);z-index:9999;display:none;align-items:center;justify-content:center;}
+  .modal-overlay.open{display:flex;}
+  .modal-box{background:white;border-radius:24px;padding:36px 28px 28px;max-width:320px;width:90%;text-align:center;box-shadow:0 8px 48px rgba(44,62,80,0.18);animation:popIn .35s cubic-bezier(.34,1.56,.64,1);}
+  @keyframes popIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+  .modal-icon{width:72px;height:72px;border-radius:50%;background:rgba(40,167,69,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+  .modal-icon svg{width:38px;height:38px;fill:var(--green);}
+  .modal-box h2{font-size:1.2rem;font-weight:900;letter-spacing:-1px;margin-bottom:8px;color:var(--petroleum);}
+  .modal-box p{font-size:.85rem;color:#777;line-height:1.6;margin-bottom:14px;}
+  .login-number-box{background:var(--bg);border-radius:14px;padding:14px;margin-bottom:16px;}
+  .login-number-box .lbl{font-size:.7rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+  .login-number-box .num{font-size:2rem;font-weight:900;letter-spacing:6px;color:var(--orange);}
+  .aviso{font-size:.75rem;color:#e74c3c;font-weight:700;margin-bottom:16px;}
+  .modal-btn{width:100%;padding:13px;background:var(--orange);color:white;border:none;border-radius:12px;font-size:.9rem;font-weight:800;font-family:var(--font);cursor:pointer;box-shadow:0 3px 12px rgba(230,81,0,0.25);}
+
+  /* BAN */
+  .ban-screen{position:fixed;inset:0;background:var(--petroleum);z-index:99999;display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;}
+  .ban-screen.show{display:flex;}
+  .ban-icon{width:88px;height:88px;border-radius:50%;background:rgba(231,76,60,0.15);border:2px solid rgba(231,76,60,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;}
+  .ban-icon svg{width:44px;height:44px;fill:var(--red);}
+  .ban-screen h1{font-size:1.6rem;font-weight:900;letter-spacing:-1px;color:white;margin-bottom:10px;}
+  .ban-screen p{font-size:.88rem;color:rgba(255,255,255,0.55);line-height:1.6;max-width:300px;margin-bottom:28px;}
+  .ban-detail{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);border-radius:14px;padding:16px 20px;margin-bottom:24px;max-width:320px;width:100%;}
+  .ban-detail p{font-size:.8rem;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:0;}
+  .ban-detail b{color:var(--red);}
+  .ban-wa{display:flex;align-items:center;gap:9px;background:#25D366;color:white;border:none;border-radius:12px;padding:13px 20px;font-size:.9rem;font-weight:700;font-family:var(--font);cursor:pointer;transition:opacity .2s;}
+  .ban-wa:hover{opacity:.88;}
+  .ban-wa svg{width:20px;height:20px;fill:white;}
+
+  /* SUCCESS OVERLAY */
+  .success-overlay{position:fixed;inset:0;background:rgba(40,167,69,0.96);z-index:99999;display:none;flex-direction:column;align-items:center;justify-content:center;}
+  .success-overlay.open{display:flex;}
+  .success-check{width:80px;height:80px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+  .success-check svg{width:44px;height:44px;fill:var(--green);}
+  .success-overlay h2{color:white;font-size:1.4rem;font-weight:900;letter-spacing:-1px;margin-bottom:8px;}
+  .success-overlay p{color:rgba(255,255,255,0.8);font-size:.9rem;}
+  .success-dots{display:flex;gap:6px;margin-top:20px;}
+  .success-dots span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5);animation:pulse 1.2s infinite;}
+  .success-dots span:nth-child(2){animation-delay:.2s;}
+  .success-dots span:nth-child(3){animation-delay:.4s;}
+  @keyframes pulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+
+  /* TOAST */
+  .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--petroleum);color:white;padding:12px 22px;border-radius:14px;font-size:.88rem;font-weight:600;box-shadow:0 4px 24px rgba(44,62,80,0.2);z-index:100000;transition:transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;display:flex;align-items:center;gap:9px;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  .toast.error{background:#e74c3c;}
+  .toast.success{background:var(--green);}
+  .toast svg{width:18px;height:18px;fill:white;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<!-- BAN SCREEN -->
+<div class="ban-screen" id="banScreen">
+  <div class="ban-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.68L5.68 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.68L18.32 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/></svg>
+  </div>
+  <h1>Conta Suspensa</h1>
+  <p>A sua conta foi suspensa por violação dos termos de utilização da plataforma Iberdrola.</p>
+  <div class="ban-detail">
+    <p>Se acredita que isto é um erro, entre em contacto com o suporte.<br><br><b>Referência:</b> <span id="banRef">-</span></p>
+  </div>
+  <button class="ban-wa" onclick="contactarSuporte()">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Contactar Suporte
+  </button>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-check">
+    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+  </div>
+  <h2>Login com Sucesso!</h2>
+  <p>A redirecionar para o Dashboard...</p>
+  <div class="success-dots"><span></span><span></span><span></span></div>
+</div>
+
+<!-- LOGIN PAGE -->
+<div class="page active" id="loginPage">
+  <div class="login-bg">
+    <div class="login-hero">
+      <div class="logo">Iber<span>drola</span></div>
+      <p>Plataforma de Investimentos em Energia Renovável</p>
+    </div>
+    <div class="login-card">
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" id="emailInput" placeholder="seu@email.com">
+      </div>
+      <div class="field">
+        <label>Senha (6 dígitos)</label>
+        <div class="input-wrap">
+          <input type="password" id="senhaEmail" placeholder="••••••" maxlength="6" inputmode="numeric" onkeydown="if(event.key==='Enter')loginEmail()">
+          <button class="toggle-pw" onclick="togglePw('senhaEmail')" type="button">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          </button>
+        </div>
+      </div>
+      <button class="btn-primary" id="btnEmail" onclick="loginEmail()">
+        <div class="btn-inner"><div class="spinner" id="sp2"></div><span id="txt2">Entrar</span></div>
+      </button>
+      <div class="register-link">Não tem conta? <a onclick="goToRegister()">Criar conta grátis</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER PAGE -->
+<div class="page" id="registerPage">
+  <div class="reg-page">
+    <div class="header">
+      <button class="back-btn" onclick="goToLogin()">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <h1>Criar Conta</h1>
+    </div>
+    <div class="page-wrap">
+      <div class="brand-block">
+        <div class="logo">Iber<span>drola</span></div>
+        <p>Preencha os dados para criar a sua conta de investimento</p>
+      </div>
+      <div class="card">
+        <h2>Dados Pessoais</h2>
+        <div class="field">
+          <label>Nome Completo</label>
+          <input type="text" id="rNome" placeholder="Digite o seu nome completo">
+        </div>
+        <div class="field">
+          <label>Número de Telefone</label>
+          <input type="tel" id="rTel" placeholder="Ex: +258 898 653 902">
+        </div>
+        <div class="field">
+          <label>E-mail</label>
+          <input type="email" id="rEmail" placeholder="seu@email.com">
+        </div>
+        <!-- CAMPO ID DE CONVITE (REFERRAL) -->
+        <div class="field">
+          <label>ID de Convite (Código de Indicação)</label>
+          <input type="text" id="rReferral" placeholder="Deixe em branco se não tiver convite" style="background:#fffef7;">
+          <div class="ref-info" id="refInfoMsg" style="display:none;">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <span>Código de convite aplicado automaticamente!</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Senha (6 dígitos numéricos)</label>
+          <div class="input-wrap">
+            <input type="password" id="rSenha" placeholder="••••••" maxlength="6" inputmode="numeric">
+            <button class="toggle-pw" onclick="togglePw('rSenha')" type="button">
+              <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </button>
+          </div>
+        </div>
+        <button class="btn-orange" id="btnCriar" onclick="criarConta()">
+          <div class="btn-inner"><div class="spinner" id="sp3"></div><span id="txt3">Criar Conta</span></div>
+        </button>
+      </div>
+      <div class="register-link">Já tem conta? <a onclick="goToLogin()">Entrar agora</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-box">
+    <div class="modal-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+    <h2>Conta Criada!</h2>
+    <p>A sua conta foi criada com sucesso. Guarde o seu ID de utilizador em segurança.</p>
+    <div class="login-number-box">
+      <div class="lbl">ID de Utilizador</div>
+      <div class="num" id="outLoginNum">------</div>
+    </div>
+    <p class="aviso">⚠️ Anote este ID. É o seu identificador único na plataforma e não pode ser recuperado.</p>
+    <button class="modal-btn" onclick="goToLoginAfterRegister()">Ir para Login</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg id="toastIcon" viewBox="0 0 24 24"></svg>
+  <span id="toastMsg"></span>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const app = initializeApp({
+ apiKey: "AIzaSyBv9ccmDC28NOnrCDWZpz56Omqb_kLPy8A",
+  authDomain: "iberdrola2016-188ba.firebaseapp.com",
+  projectId: "iberdrola2016-188ba",
+  storageBucket: "iberdrola2016-188ba.firebasestorage.app",
+  messagingSenderId: "183090839430",
+  appId: "1:183090839430:web:a45a5af2f505a422b93607"
+});
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+// CAPTURAR CÓDIGO DE REFERRAL DA URL
+const urlParams = new URLSearchParams(window.location.search);
+let referralCode = urlParams.get('ref') || '';
+
+// ─── PREENCHER AUTOMATICAMENTE O CAMPO DE CONVITE ───
+function autoFillReferralField() {
+  const refInput = document.getElementById('rReferral');
+  const refMsg   = document.getElementById('refInfoMsg');
+  if (referralCode && referralCode.trim() !== '') {
+    refInput.value = referralCode;
+    refInput.style.background = '#e8f5e9';
+    refMsg.style.display = 'flex';
+    refMsg.style.background = '#e8f5e9';
+    refMsg.style.padding = '8px 12px';
+    refMsg.style.borderRadius = '8px';
+    refMsg.style.marginTop = '8px';
+    validateReferralCode(referralCode);
+  } else {
+    refInput.value = '';
+    refMsg.style.display = 'none';
+  }
+}
+
+// ─── VALIDAR CÓDIGO DE REFERRAL ───
+async function validateReferralCode(code) {
+  if (!code) return;
+  try {
+    const q    = query(collection(db, 'users'), where('loginNum', '==', code));
+    const snap = await getDocs(q);
+    const refMsg = document.getElementById('refInfoMsg');
+    if (!snap.empty) {
+      refMsg.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>Código de convite válido! Será associado a este patrocinador.</span>';
+      refMsg.style.color = '#28A745';
+    } else {
+      refMsg.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><span>Aviso: Código de convite não encontrado. Verifique se está correto.</span>';
+      refMsg.style.color = '#E65100';
+    }
+  } catch(e) {
+    console.warn("Erro ao validar código de convite:", e);
+  }
+}
+
+// ─── NAVEGAÇÃO ───
+window.goToRegister = () => {
+  document.getElementById('loginPage').classList.remove('active');
+  document.getElementById('registerPage').classList.add('active');
+  autoFillReferralField();
+};
+window.goToLogin = () => {
+  document.getElementById('registerPage').classList.remove('active');
+  document.getElementById('loginPage').classList.add('active');
+};
+window.goToLoginAfterRegister = () => {
+  document.getElementById('successModal').classList.remove('open');
+  goToLogin();
+};
+
+// ─── TOGGLE PW ───
+window.togglePw = id => {
+  const inp = document.getElementById(id);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+};
+
+// ─── TOAST ───
+function showToast(msg, type=''){
+  const icons = {
+    error:'<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>',
+    success:'<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>',
+  };
+  document.getElementById('toastMsg').textContent = msg;
+  document.getElementById('toastIcon').innerHTML  = icons[type] || '';
+  const t = document.getElementById('toast');
+  t.className = 'toast ' + (type||'');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ─── BAN ───
+function showBanScreen(userData){
+  document.getElementById('banRef').textContent = userData.loginNum || '-';
+  document.getElementById('banScreen').classList.add('show');
+}
+window.contactarSuporte = () => {
+  const ref = document.getElementById('banRef').textContent;
+  const msg = encodeURIComponent(`Olá, a minha conta foi suspensa na plataforma Iberdrola.\n\nReferência: ${ref}\n\nSolicito revisão desta decisão.`);
+  window.open(`https://wa.me/+244929108366?text=${msg}`, '_blank');
+};
+
+// ─── LOADING LOGIN ───
+function setLoadingLogin(on){
+  document.getElementById('btnEmail').disabled        = on;
+  document.getElementById('sp2').style.display        = on ? 'block' : 'none';
+  document.getElementById('txt2').textContent         = on ? 'A verificar...' : 'Entrar';
+}
+
+// ─── LOADING REGISTO ───
+function setLoadingReg(on){
+  document.getElementById('btnCriar').disabled        = on;
+  document.getElementById('sp3').style.display        = on ? 'block' : 'none';
+  document.getElementById('txt3').textContent         = on ? 'A criar conta...' : 'Criar Conta';
+}
+
+// ─── REDIRECT ───
+function redirectToIndex(){
+  document.getElementById('successOverlay').classList.add('open');
+  setTimeout(() => { window.location.href = 'index.html'; }, 2000);
+}
+
+// ─── LOGIN EMAIL ───
+window.loginEmail = async () => {
+  const email = document.getElementById('emailInput').value.trim();
+  const senha = document.getElementById('senhaEmail').value;
+  if(!email || !senha){ showToast('Preencha todos os campos','error'); return; }
+  if(senha.length !== 6 || !/^\d{6}$/.test(senha)){ showToast('A senha deve ter exatamente 6 dígitos numéricos','error'); return; }
+
+  setLoadingLogin(true);
+  try {
+    const cred = await signInWithEmailAndPassword(auth, email, senha);
+    try {
+      const snap = await getDoc(doc(db,'users', cred.user.uid));
+      if(snap.exists() && snap.data().banido){
+        showBanScreen(snap.data());
+        setLoadingLogin(false);
+        return;
+      }
+    } catch(fe){ console.warn('Firestore ban check falhou:', fe); }
+    showToast('Login bem-sucedido!','success');
+    setTimeout(redirectToIndex, 800);
+  } catch(e){
+    console.error('Erro login email:', e.code, e.message);
+    if(e.code==='auth/wrong-password'||e.code==='auth/invalid-credential'){
+      showToast('E-mail ou senha incorreta','error');
+    } else if(e.code==='auth/user-not-found'){
+      showToast('Conta não encontrada','error');
+    } else if(e.code==='auth/too-many-requests'){
+      showToast('Muitas tentativas. Aguarde um momento.','error');
+    } else if(e.code==='auth/invalid-email'){
+      showToast('E-mail inválido','error');
+    } else {
+      showToast('Erro ao entrar. Tente novamente.','error');
+    }
+    setLoadingLogin(false);
+  }
+};
+
+// ─── CRIAR CONTA ───
+window.criarConta = async () => {
+  const nome    = document.getElementById('rNome').value.trim();
+  const tel     = document.getElementById('rTel').value.trim();
+  const email   = document.getElementById('rEmail').value.trim();
+  const senha   = document.getElementById('rSenha').value;
+  const refCode = document.getElementById('rReferral').value.trim();
+
+  if(!nome||!tel||!email||!senha){ showToast('Preencha todos os campos','error'); return; }
+  if(senha.length !== 6 || !/^\d{6}$/.test(senha)){ showToast('A senha deve ter exatamente 6 dígitos numéricos','error'); return; }
+
+  setLoadingReg(true);
+  try {
+    const cred     = await createUserWithEmailAndPassword(auth, email, senha);
+    const uid      = cred.user.uid;
+    const loginNum = (Math.floor(100000 + Math.random()*900000)).toString();
+
+    const userData = {
+      uid,
+      nomeCompleto: nome,
+      telefone: tel,
+      email,
+      loginNum,
+      saldoDisponivel: 0,
+      saldoEmCompra: 0,
+      saldoComissoes: 0,
+      ganhoVendasHoje: 0,
+      totalGanhoVendas: 0,
+      planos: [],
+      cartaoBancario: null,
+      afilhados: [],
+      banido: false,
+      criadoEm: new Date().toISOString(),
+    };
+
+    // REFERRAL
+    if(refCode && refCode !== '') {
+      userData.refBy = refCode;
+      userData.refCodeUsed = refCode;
+      try {
+        const qSponsor    = query(collection(db, 'users'), where('loginNum', '==', refCode));
+        const sponsorSnap = await getDocs(qSponsor);
+        if(!sponsorSnap.empty){
+          const sponsorDoc  = sponsorSnap.docs[0];
+          const sponsorData = sponsorDoc.data();
+          const afilhadosAtual = sponsorData.afilhados || [];
+          if(!afilhadosAtual.includes(uid)){
+            await setDoc(doc(db,'users', sponsorDoc.id), {
+              ...sponsorData,
+              afilhados: [...afilhadosAtual, uid]
+            }, { merge: true });
+          }
+        }
+      } catch(err){ console.warn("Não foi possível atualizar afiliados do patrocinador", err); }
+    }
+
+    await setDoc(doc(db,'users', uid), userData);
+    document.getElementById('outLoginNum').textContent = loginNum;
+    document.getElementById('successModal').classList.add('open');
+  } catch(e){
+    console.error('Erro criar conta:', e.code, e.message);
+    let msg = 'Erro ao criar conta.';
+    if(e.code==='auth/email-already-in-use') msg='Este e-mail já está registado.';
+    if(e.code==='auth/invalid-email')        msg='E-mail inválido.';
+    if(e.code==='auth/weak-password')        msg='Senha muito fraca.';
+    showToast(msg,'error');
+  }
+  setLoadingReg(false);
+};
+
+// ─── INIT ───
+document.addEventListener('DOMContentLoaded', () => {
+  if(referralCode && referralCode !== '') {
+    goToRegister();
+  }
+});
+</script>
+</body>
+</html>
