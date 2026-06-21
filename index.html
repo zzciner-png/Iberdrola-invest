@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iberdrola - Inicio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#E65100;--green:#28A745;--blue:#007BFF;--petroleum:#2C3E50;--bg:#F5F6FA;--white:#FFFFFF;--shadow:0 4px 24px rgba(44,62,80,0.10);--radius:18px;--font:'Inter',sans-serif;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:var(--font);background:var(--bg);min-height:100vh;padding-bottom:80px;color:var(--petroleum);}
+
+  /* WP POPUP */
+  .wp-overlay{position:fixed;inset:0;background:rgba(44,62,80,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;animation:fadeIn .3s;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .wp-modal{background:var(--white);border-radius:22px;padding:28px 24px 22px;max-width:330px;width:90%;box-shadow:0 8px 48px rgba(44,62,80,0.18);text-align:center;}
+  .wp-icon{width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+  .wp-icon svg{width:34px;height:34px;fill:white;}
+  .wp-modal h2{font-size:1.1rem;font-weight:800;letter-spacing:-1px;margin-bottom:7px;}
+  .wp-modal p{font-size:.83rem;color:#666;margin-bottom:18px;line-height:1.5;}
+  .btn-wp{display:block;width:100%;background:#25D366;color:white;border:none;border-radius:12px;padding:13px;font-size:.93rem;font-weight:700;cursor:pointer;text-decoration:none;margin-bottom:9px;box-shadow:0 2px 10px rgba(37,211,102,0.25);font-family:var(--font);}
+  .btn-skip{background:none;border:none;color:#bbb;font-size:.82rem;cursor:pointer;font-family:var(--font);}
+
+  /* HEADER */
+  .header{background:var(--petroleum);padding:16px 20px 14px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(44,62,80,0.15);}
+  .logo{font-size:1.35rem;font-weight:900;letter-spacing:-1px;color:white;}
+  .logo span{color:var(--orange);}
+  .greeting-wrap{text-align:right;}
+  .greeting{font-size:.72rem;color:rgba(255,255,255,0.6);}
+  .greeting-name{font-size:.88rem;color:white;font-weight:700;}
+
+  /* QR BANNER */
+  .qr-banner{background:linear-gradient(135deg,var(--petroleum) 60%,#1a252f 100%);margin:14px 16px 0;border-radius:var(--radius);padding:16px 18px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,box-shadow .15s;}
+  .qr-banner:active{transform:scale(.98);}
+  .qr-box{background:white;border-radius:9px;padding:6px;flex-shrink:0;}
+  .qr-box img{width:64px;height:64px;display:block;}
+  .qr-info h3{color:white;font-size:.88rem;font-weight:800;letter-spacing:-1px;margin-bottom:3px;}
+  .qr-info p{color:rgba(255,255,255,0.55);font-size:.72rem;line-height:1.4;}
+  .qr-tap-hint{margin-top:5px;display:flex;align-items:center;gap:5px;}
+  .qr-tap-hint span{color:var(--orange);font-size:.67rem;font-weight:700;}
+  .qr-tap-hint svg{width:11px;height:11px;fill:var(--orange);}
+
+  /* SLIDESHOW */
+  .slideshow-wrap{margin:12px 16px 0;border-radius:var(--radius);overflow:hidden;position:relative;height:180px;box-shadow:var(--shadow);}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity .7s ease;}
+  .slide.active{opacity:1;}
+  .slide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .slide-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(44,62,80,0.65));padding:18px 14px 10px;}
+  .slide-caption{color:white;font-size:.8rem;font-weight:600;}
+  .slide-dots{position:absolute;bottom:9px;right:11px;display:flex;gap:4px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.45);transition:background .3s;}
+  .dot.active{background:white;}
+
+  /* INFO STRIP */
+  .info-strip{margin:12px 16px 0;background:rgba(255,255,255,0.9);backdrop-filter:blur(12px);border-radius:14px;padding:12px 14px;display:flex;gap:11px;align-items:flex-start;box-shadow:var(--shadow);border:1px solid rgba(230,81,0,0.09);}
+  .info-strip-icon{width:34px;height:34px;border-radius:9px;background:var(--orange);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .info-strip-icon svg{width:17px;height:17px;fill:white;}
+  .info-strip-text h4{font-size:.8rem;font-weight:700;color:var(--petroleum);margin-bottom:2px;}
+  .info-strip-text p{font-size:.71rem;color:#777;line-height:1.4;}
+
+  /* QUICK ACTIONS */
+  .section-title{font-size:.72rem;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:1.5px;padding:16px 20px 9px;}
+  .quick-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px;}
+  .qa-btn{background:rgba(255,255,255,0.9);backdrop-filter:blur(12px);border-radius:14px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:7px;box-shadow:0 2px 10px rgba(44,62,80,0.07);border:1px solid rgba(255,255,255,0.9);cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s;}
+  .qa-btn:active{transform:scale(.95);box-shadow:0 1px 5px rgba(44,62,80,0.1);}
+  .qa-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;}
+  .qa-icon svg{width:20px;height:20px;}
+  .qa-btn span{font-size:.74rem;font-weight:700;color:var(--petroleum);text-align:center;}
+
+  /* CALENDAR */
+  .cal-wrap{margin:0 16px;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-radius:16px;padding:14px 14px 12px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.95);transition:transform .18s,box-shadow .18s;}
+  .cal-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0;}
+  .cal-title{font-size:.82rem;font-weight:800;letter-spacing:-1px;}
+  .cal-badge{background:var(--green);color:white;font-size:.62rem;font-weight:800;border-radius:7px;padding:2px 8px;}
+  .cal-toggle-icon{color:#bbb;transition:transform .3s;cursor:pointer;}
+  .cal-toggle-icon.open{transform:rotate(180deg);}
+  .cal-toggle-icon svg{width:16px;height:16px;fill:currentColor;}
+  .cal-body{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.4,0,.2,1),opacity .3s;opacity:0;}
+  .cal-body.open{max-height:260px;opacity:1;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin:10px 0 6px;}
+  .cal-day-name{text-align:center;font-size:.56rem;font-weight:700;color:#bbb;text-transform:uppercase;padding-bottom:3px;}
+  .cal-day{aspect-ratio:1;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;color:#666;background:#f5f6fa;transition:transform .15s;}
+  .cal-day.clickable{cursor:pointer;}
+  .cal-day.clickable:active{transform:scale(.9);}
+  .cal-day.has-earn{background:rgba(40,167,69,0.12);color:var(--green);font-weight:700;}
+  .cal-day.today{background:var(--blue);color:white;font-weight:800;box-shadow:0 2px 6px rgba(0,123,255,0.3);}
+  .cal-day.empty{background:transparent;}
+  .cal-summary{display:flex;gap:8px;padding-top:8px;border-top:1px solid #f0f0f0;}
+  .cs-item{flex:1;text-align:center;}
+  .cs-item .cv{font-size:.9rem;font-weight:900;letter-spacing:-1px;color:var(--petroleum);}
+  .cs-item .cl{font-size:.6rem;color:#bbb;margin-top:1px;}
+
+  /* CALENDAR POPUP */
+  .cal-popup-overlay{position:fixed;inset:0;background:rgba(44,62,80,0.6);z-index:8888;display:none;align-items:flex-end;justify-content:center;}
+  .cal-popup-overlay.open{display:flex;animation:fadeIn .25s;}
+  .cal-popup-box{background:white;border-radius:24px 24px 0 0;padding:22px 22px 40px;width:100%;max-width:480px;animation:slideUp .3s ease;}
+  @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .popup-handle{width:38px;height:4px;background:#ddd;border-radius:4px;margin:0 auto 18px;}
+  .cal-popup-date{font-size:.72rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+  .cal-popup-title{font-size:1rem;font-weight:900;letter-spacing:-1px;color:var(--petroleum);margin-bottom:16px;}
+  .cal-popup-stat-row{display:flex;gap:10px;margin-bottom:16px;}
+  .cal-popup-stat{flex:1;background:#f5f6fa;border-radius:14px;padding:12px 10px;text-align:center;}
+  .cal-popup-stat .sv{font-size:1rem;font-weight:900;letter-spacing:-1px;}
+  .cal-popup-stat .sl{font-size:.62rem;color:#aaa;margin-top:3px;font-weight:600;}
+  .cal-popup-stat.green .sv{color:var(--green);}
+  .cal-popup-stat.orange .sv{color:var(--orange);}
+  .cal-popup-stat.blue .sv{color:var(--blue);}
+  .cal-popup-info{background:rgba(40,167,69,0.07);border:1px solid rgba(40,167,69,0.15);border-radius:12px;padding:11px 13px;display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;}
+  .cal-popup-info svg{width:16px;height:16px;fill:var(--green);flex-shrink:0;margin-top:1px;}
+  .cal-popup-info p{font-size:.75rem;color:#555;line-height:1.5;}
+  .cal-popup-close{width:100%;padding:13px;background:var(--petroleum);color:white;border:none;border-radius:12px;font-size:.88rem;font-weight:800;font-family:var(--font);cursor:pointer;transition:transform .15s;}
+  .cal-popup-close:active{transform:scale(.97);}
+  .cal-popup-no-plan{text-align:center;padding:20px 0 10px;}
+  .cal-popup-no-plan svg{width:40px;height:40px;fill:#ddd;margin-bottom:10px;}
+  .cal-popup-no-plan p{font-size:.82rem;color:#aaa;}
+
+  /* QR POPUP */
+  .qr-popup-overlay{position:fixed;inset:0;background:rgba(44,62,80,0.6);z-index:8888;display:none;align-items:center;justify-content:center;}
+  .qr-popup-overlay.open{display:flex;animation:fadeIn .25s;}
+  .qr-popup-box{background:white;border-radius:24px;padding:26px 22px 22px;max-width:310px;width:90%;text-align:center;box-shadow:0 12px 48px rgba(44,62,80,0.2);animation:popIn .3s cubic-bezier(.34,1.56,.64,1);}
+  @keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+  .qr-popup-img-wrap{background:var(--petroleum);border-radius:16px;padding:16px;display:inline-block;margin-bottom:14px;}
+  .qr-popup-img-wrap img{width:160px;height:160px;display:block;border-radius:8px;}
+  .qr-popup-box h3{font-size:.95rem;font-weight:900;letter-spacing:-1px;margin-bottom:6px;}
+  .qr-popup-box p{font-size:.78rem;color:#777;line-height:1.5;margin-bottom:16px;}
+  .qr-popup-btns{display:flex;gap:9px;}
+  .btn-qr-wp{flex:2;background:#25D366;color:white;border:none;border-radius:11px;padding:12px;font-size:.83rem;font-weight:800;cursor:pointer;font-family:var(--font);text-decoration:none;display:block;text-align:center;}
+  .btn-qr-close{flex:1;background:#f5f6fa;color:#888;border:none;border-radius:11px;padding:12px;font-size:.83rem;font-weight:700;cursor:pointer;font-family:var(--font);}
+
+  /* SKELETON */
+  .skeleton{background:linear-gradient(90deg,#e8e9ec 25%,#f5f5f7 50%,#e8e9ec 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:10px;}
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  /* BOTTOM NAV */
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid #eee;display:flex;height:68px;box-shadow:0 -4px 24px rgba(44,62,80,0.08);z-index:200;}
+  .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;text-decoration:none;transition:color .15s;}
+  .nav-item svg{width:22px;height:22px;transition:transform .15s;}
+  .nav-item span{font-size:.68rem;font-weight:600;}
+  .nav-item.active{color:var(--orange);}
+  .nav-item.active svg{transform:translateY(-2px);}
+  .nav-item:not(.active){color:#aaa;}
+  .nav-item:active svg{transform:scale(.9);}
+</style>
+</head>
+<body>
+
+<!-- WHATSAPP POPUP -->
+<div class="wp-overlay" id="wpOverlay">
+  <div class="wp-modal">
+    <div class="wp-icon">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </div>
+    <h2>Junte-se ao nosso Grupo</h2>
+    <p>Receba actualizacoes exclusivas e alertas de investimento da Iberdrola directamente no WhatsApp.</p>
+    <a href="https://chat.whatsapp.com/L8rWoqSjQyCIusDemkktKE?mode=gi_t" target="_blank" class="btn-wp">Entrar no Canal</a>
+    <button class="btn-skip" onclick="document.getElementById('wpOverlay').style.display='none'">Agora nao</button>
+  </div>
+</div>
+
+<!-- QR POPUP -->
+<div class="qr-popup-overlay" id="qrPopup">
+  <div class="qr-popup-box">
+    <div class="qr-popup-img-wrap">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://whatsapp.com/channel/0029VbCehJpISTkQk9jR1K0n&size=160x160&color=FFFFFF&bgcolor=2C3E50" alt="QR Code">
+    </div>
+    <h3>Canal Oficial Iberdrola</h3>
+    <p>Digitalize o QR com a camara do seu telemovel ou toque para abrir o canal WhatsApp.</p>
+    <div class="qr-popup-btns">
+      <a href="https://chat.whatsapp.com/L8rWoqSjQyCIusDemkktKE?mode=gi_t" target="_blank" class="btn-qr-wp">Abrir Canal</a>
+      <button class="btn-qr-close" onclick="closeQrPopup()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CALENDAR POPUP -->
+<div class="cal-popup-overlay" id="calPopup">
+  <div class="cal-popup-box">
+    <div class="popup-handle"></div>
+    <div class="cal-popup-date" id="cpDate"></div>
+    <div class="cal-popup-title" id="cpTitle">Resumo do Dia</div>
+    <div id="cpContent"></div>
+    <button class="cal-popup-close" onclick="closeCalPopup()">Fechar</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">Iber<span>drola</span></div>
+  <div class="greeting-wrap">
+    <div class="greeting" id="greetingText">Bom dia</div>
+    <div class="greeting-name" id="greetingName">Investidor</div>
+  </div>
+</div>
+
+<!-- SKELETON -->
+<div id="skeletonWrap">
+  <div style="margin:14px 16px 0"><div class="skeleton" style="height:82px;border-radius:18px"></div></div>
+  <div style="margin:12px 16px 0"><div class="skeleton" style="height:180px;border-radius:18px"></div></div>
+  <div style="margin:12px 16px 0"><div class="skeleton" style="height:60px;border-radius:14px"></div></div>
+  <div style="padding:16px 16px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px">
+    <div class="skeleton" style="height:82px;border-radius:14px"></div>
+    <div class="skeleton" style="height:82px;border-radius:14px"></div>
+    <div class="skeleton" style="height:82px;border-radius:14px"></div>
+  </div>
+  <div style="margin:0 16px"><div class="skeleton" style="height:48px;border-radius:16px"></div></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent" style="display:none">
+
+  <!-- QR BANNER - clicavel -->
+  <div class="qr-banner" onclick="openQrPopup()">
+    <div class="qr-box">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://chat.whatsapp.com/L8rWoqSjQyCIusDemkktKE?mode=gi_t" alt="QR Code">
+    </div>
+    <div class="qr-info">
+      <h3>Iberdrola Investimentos</h3>
+      <p>Digitalize o QR para aceder ao canal oficial e saber como funciona a plataforma.</p>
+      <div class="qr-tap-hint">
+        <svg viewBox="0 0 24 24"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.21.2.49.32.79.32h6.27c.61 0 1.13-.44 1.23-1.04l.72-4.54c.04-.21.02-.43-.06-.63z"/></svg>
+        <span>Toque para ampliar</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slideshow-wrap">
+    <div class="slide active" data-caption="Energias Renovaveis Iberdrola"><img src="https://i.postimg.cc/pL6DNk2k/230711-iberdrola-vodafone-726x484.jpg" alt="s1"><div class="slide-overlay"><div class="slide-caption">Energias Renovaveis Iberdrola</div></div></div>
+    <div class="slide" data-caption="Projetos de Energia Limpa"><img src="https://i.postimg.cc/xTsmHgbc/planta-solar-italia-726x484.jpg" alt="s2"><div class="slide-overlay"><div class="slide-caption">Projetos de Energia Limpa</div></div></div>
+    <div class="slide" data-caption="Infraestrutura Global"><img src="https://i.postimg.cc/76T9td0Y/slr-ppl-014-1536x1029.jpg" alt="s3"><div class="slide-overlay"><div class="slide-caption">Worker Global</div></div></div>
+    <div class="slide" data-caption="Planta Fotovoltaica"><img src="https://i.postimg.cc/RZKM9Zmd/Planta-fotovoltaica-Iberdrola.jpg" alt="s4"><div class="slide-overlay"><div class="slide-caption">Planta Fotovoltaica</div></div></div>
+    <div class="slide" data-caption="Iberdrola Italia"><img src="https://i.postimg.cc/C5gGP1Fy/iberdrola-eleva-un-3-su-beneficio-a-marzo-hasta-1-058-millones.webp" alt="s5"><div class="slide-overlay"><div class="slide-caption">Iberdrola Italia</div></div></div>
+    <div class="slide-dots" id="slideDots"></div>
+  </div>
+
+  <div class="info-strip">
+    <div class="info-strip-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+    <div class="info-strip-text">
+      <h4>Plataforma Certificada</h4>
+      <p>Fundos protegidos. Ganhos processados em ate 24 horas. Invista com seguranca.</p>
+    </div>
+  </div>
+
+  <div class="section-title">Acoes Rapidas</div>
+  <div class="quick-actions">
+    <a href="perfil.html" class="qa-btn">
+      <div class="qa-icon" style="background:rgba(0,123,255,0.1)"><svg viewBox="0 0 24 24" fill="#007BFF"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div>
+      <span>Perfil</span>
+    </a>
+    <a href="deposito-levantamento.html" class="qa-btn">
+      <div class="qa-icon" style="background:rgba(230,81,0,0.1)"><svg viewBox="0 0 24 24" fill="#E65100"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
+      <span>Levantamento</span>
+    </a>
+    <a href="compras.html" class="qa-btn">
+      <div class="qa-icon" style="background:rgba(40,167,69,0.1)"><svg viewBox="0 0 24 24" fill="#28A745"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div>
+      <span>Planos</span>
+    </a>
+  </div>
+
+  <div class="section-title">Calendario de Ganhos</div>
+
+  <div class="cal-wrap" id="calWrap">
+    <div class="cal-header-row" onclick="toggleCal()">
+      <div class="cal-title" id="calMonthTitle">Abril 2025</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="cal-badge">Activo</span>
+        <span class="cal-toggle-icon" id="calToggleIcon"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></span>
+      </div>
+    </div>
+    <div class="cal-body" id="calBody">
+      <div class="cal-grid" id="calGrid">
+        <div class="cal-day-name">D</div><div class="cal-day-name">S</div><div class="cal-day-name">T</div>
+        <div class="cal-day-name">Q</div><div class="cal-day-name">Q</div><div class="cal-day-name">S</div><div class="cal-day-name">S</div>
+      </div>
+      <div class="cal-summary">
+        <div class="cs-item"><div class="cv" id="csDias">0</div><div class="cl">Dias Activos</div></div>
+        <div class="cs-item"><div class="cv" id="csHoje">0</div><div class="cl">Ganhos Hoje</div></div>
+        <div class="cs-item"><div class="cv" id="csMes">0</div><div class="cl">Total Mes</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:20px"></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="index.html" class="nav-item active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Inicio</span></a>
+  <a href="compras.html" class="nav-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.1 17.2 7.2 17.2h12.8v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.43 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><span>Compras</span></a>
+  <a href="conversao.html" class="nav-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg><span>Conversao</span></a>
+  <a href="perfil.html" class="nav-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg><span>Perfil</span></a>
+</nav>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const app=initializeApp({apiKey: "AIzaSyBv9ccmDC28NOnrCDWZpz56Omqb_kLPy8A",
+  authDomain: "iberdrola2016-188ba.firebaseapp.com",
+  projectId: "iberdrola2016-188ba",
+  storageBucket: "iberdrola2016-188ba.firebasestorage.app",
+  messagingSenderId: "183090839430",
+  appId: "1:183090839430:web:a45a5af2f505a422b93607"});
+  const auth=getAuth(app),db=getFirestore(app);
+  let userPlanos=[];
+
+  // Greeting
+  function setGreeting(){
+    const h=new Date().getHours();
+    document.getElementById('greetingText').textContent=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+  }
+  setGreeting();
+
+  // Slideshow
+  const slides=document.querySelectorAll('.slide');
+  const dotsWrap=document.getElementById('slideDots');
+  let cur=0;
+  slides.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i===0?' active':'');dotsWrap.appendChild(d);});
+  const dots=document.querySelectorAll('.dot');
+  setInterval(()=>{
+    slides[cur].classList.remove('active');dots[cur].classList.remove('active');
+    cur=(cur+1)%slides.length;
+    slides[cur].classList.add('active');dots[cur].classList.add('active');
+  },3000);
+
+  // Calendar toggle
+  let calOpen=false;
+  window.toggleCal=()=>{
+    calOpen=!calOpen;
+    document.getElementById('calBody').classList.toggle('open',calOpen);
+    document.getElementById('calToggleIcon').classList.toggle('open',calOpen);
+  };
+
+  // QR Popup
+  window.openQrPopup=()=>document.getElementById('qrPopup').classList.add('open');
+  window.closeQrPopup=()=>document.getElementById('qrPopup').classList.remove('open');
+  document.getElementById('qrPopup').addEventListener('click',e=>{if(e.target===document.getElementById('qrPopup'))closeQrPopup();});
+
+  // Calendar Popup
+  window.closeCalPopup=()=>document.getElementById('calPopup').classList.remove('open');
+  document.getElementById('calPopup').addEventListener('click',e=>{if(e.target===document.getElementById('calPopup'))closeCalPopup();});
+
+  function fmt(n){return Number(n).toLocaleString('pt');}
+
+  function openCalPopup(day, month, year, isPast, isToday){
+    const monthNames=['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    const weekDays=['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado'];
+    const dateObj=new Date(year,month,day);
+    const weekDay=weekDays[dateObj.getDay()];
+
+    document.getElementById('cpDate').textContent=`${weekDay}, ${day} de ${monthNames[month]} de ${year}`;
+    document.getElementById('cpTitle').textContent=isToday?'Hoje — Resumo do Dia':(isPast?'Resumo do Dia':'Projecao do Dia');
+
+    let html='';
+
+    if(userPlanos && userPlanos.length>0){
+      // Calcula ganhos do dia baseado nos planos do usuario
+      let totalDia=0;
+      let planInfoRows='';
+      userPlanos.forEach(p=>{
+        if(p.tipo==='Ilimitado' && p.rendaDiaria){
+          // Apenas dias uteis (seg-sex)
+          const dow=dateObj.getDay();
+          const isUtil=dow>=1&&dow<=5;
+          const valor=isUtil?p.rendaDiaria:0;
+          totalDia+=valor;
+          planInfoRows+=`
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f5f5f5;">
+            <span style="font-size:.77rem;color:#555;font-weight:600;">${p.nome||'Plano Ilimitado'}</span>
+            <span style="font-size:.82rem;font-weight:900;color:${isUtil?'var(--green)':'#bbb'};">${isUtil?'+'+fmt(valor)+' Kz':'Fim de semana'}</span>
+          </div>`;
+        } else if(p.tipo==='Curto Prazo' && p.retorno){
+          const dataCompra=p.dataCompra?new Date(p.dataCompra):null;
+          if(dataCompra){
+            const diasRestantes=Math.ceil((dataCompra.getTime()+30*24*3600*1000-dateObj.getTime())/(24*3600*1000));
+            planInfoRows+=`
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f5f5f5;">
+              <span style="font-size:.77rem;color:#555;font-weight:600;">${p.nome||'Plano Curto Prazo'}</span>
+              <span style="font-size:.82rem;font-weight:900;color:var(--blue);">${diasRestantes>0?diasRestantes+' dias restantes':'Concluido'}</span>
+            </div>`;
+          }
+        }
+      });
+
+      const dow=dateObj.getDay();
+      const isUtil=dow>=1&&dow<=5;
+
+      html=`
+      <div class="cal-popup-stat-row">
+        <div class="cal-popup-stat green">
+          <div class="sv">${fmt(totalDia)} Kz</div>
+          <div class="sl">Ganho do Dia</div>
+        </div>
+        <div class="cal-popup-stat orange">
+          <div class="sv">${userPlanos.length}/2</div>
+          <div class="sl">Planos Activos</div>
+        </div>
+        <div class="cal-popup-stat blue">
+          <div class="sv">${isUtil?'Util':'Weekend'}</div>
+          <div class="sl">Tipo de Dia</div>
+        </div>
+      </div>
+      <div style="margin-bottom:12px">${planInfoRows}</div>
+      <div class="cal-popup-info">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p>${isPast?'Ganhos ja creditados na sua conta para este dia.':isToday?'Os ganhos de hoje serao processados no final do dia util.':'Projecao baseada nos seus planos activos. Sujeito a dias uteis.'}</p>
+      </div>`;
+    } else {
+      html=`
+      <div class="cal-popup-no-plan">
+        <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+        <p>Nenhum plano activo.<br>Adquira um plano para ver os ganhos.</p>
+      </div>
+      <div class="cal-popup-info" style="margin-top:10px">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p>Aceda a Planos para escolher o investimento ideal para si.</p>
+      </div>`;
+    }
+
+    document.getElementById('cpContent').innerHTML=html;
+    document.getElementById('calPopup').classList.add('open');
+  }
+
+  // Build calendar
+  function buildCal(){
+    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    const months=['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    document.getElementById('calMonthTitle').textContent=months[m]+' '+y;
+    const firstDay=new Date(y,m,1).getDay();
+    const daysInMonth=new Date(y,m+1,0).getDate();
+    const grid=document.getElementById('calGrid');
+    // Remove dias antigos se existirem
+    const existing=grid.querySelectorAll('.cal-day');
+    existing.forEach(e=>e.remove());
+
+    for(let i=0;i<firstDay;i++){const el=document.createElement('div');el.className='cal-day empty';grid.appendChild(el);}
+    for(let d=1;d<=daysInMonth;d++){
+      const el=document.createElement('div');
+      const isToday=d===now.getDate();
+      const isPast=d<now.getDate();
+      const isDayOfWeek=new Date(y,m,d).getDay();
+      const isUtil=isDayOfWeek>=1&&isDayOfWeek<=5;
+      el.className='cal-day clickable'+(isToday?' today':isPast&&isUtil?' has-earn':'');
+      el.textContent=d;
+      el.onclick=()=>openCalPopup(d,m,y,isPast,isToday);
+      grid.appendChild(el);
+    }
+    document.getElementById('csDias').textContent=now.getDate()-1;
+
+    // Calcula ganhos
+    let rendaDiaria=0;
+    if(userPlanos){
+      userPlanos.forEach(p=>{if(p.tipo==='Ilimitado'&&p.rendaDiaria)rendaDiaria+=p.rendaDiaria;});
+    }
+    const hoje=new Date();
+    const dow=hoje.getDay();
+    const ganhoHoje=(dow>=1&&dow<=5)?rendaDiaria:0;
+    // Calcula dias uteis passados no mes
+    let diasUteis=0;
+    for(let d=1;d<now.getDate();d++){const dw=new Date(y,m,d).getDay();if(dw>=1&&dw<=5)diasUteis++;}
+    document.getElementById('csHoje').textContent=fmt(ganhoHoje);
+    document.getElementById('csMes').textContent=fmt(rendaDiaria*diasUteis);
+  }
+
+  onAuthStateChanged(auth,async user=>{
+    if(!user){window.location.href='incricao.html';return;}
+    try{
+      const snap=await getDoc(doc(db,'users',user.uid));
+      if(snap.exists()){
+        const d=snap.data();
+        document.getElementById('greetingName').textContent=d.nomeCompleto?d.nomeCompleto.split(' ')[0]:'Investidor';
+        userPlanos=d.planos||[];
+      }
+    }catch(e){}
+    buildCal();
+    setTimeout(()=>{
+      document.getElementById('skeletonWrap').style.display='none';
+      document.getElementById('mainContent').style.display='block';
+    },1200);
+  });
+</script>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iberdrola · Chat IA</title>
+<style>
+  :root {
+    --brand:     #FF6200;
+    --brand-dk:  #E55500;
+    --brand-lt:  rgba(255,98,0,.09);
+    --black:     #0A0A0A;
+    --bg-chat:   #F5F5F5;
+    --bubble-ia: #0A0A0A;
+    --shadow:    0 8px 32px rgba(0,0,0,.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Botão flutuante ── */
+  #wcBtn {
+    position: fixed;
+    bottom: 80px;
+    right: 22px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--brand);
+    border: none;
+    color: #fff;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(255,98,0,.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9000;
+    transition: transform .2s, box-shadow .2s;
+    overflow: hidden;
+    padding: 0;
+  }
+  #wcBtn:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(255,98,0,.65); }
+  #wcBtn.hidden { display: none; }
+
+  .wc-button-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    pointer-events: none;
+  }
+  .wc-btn-fallback {
+    font-size: 26px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  #wcBadge {
+    position: absolute;
+    top: -2px; right: -2px;
+    width: 18px; height: 18px;
+    background: #e53e3e;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    pointer-events: none;
+  }
+  #wcBadge.hidden { display: none; }
+
+  /* ── Overlay ── */
+  #wcOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 9001;
+    display: none;
+    animation: fadeIn .25s ease;
+  }
+  #wcOverlay.active { display: block; }
+
+  /* ── Painel principal ── */
+  #wcPanel {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    max-width: 420px;
+    height: 100dvh;
+    max-height: 640px;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    box-shadow: var(--shadow);
+    display: none;
+    flex-direction: column;
+    z-index: 9002;
+    animation: slideUp .28s cubic-bezier(.34,1.3,.64,1);
+    overflow: hidden;
+  }
+  #wcPanel.active { display: flex; }
+
+  @media (min-width: 480px) {
+    #wcPanel {
+      bottom: 90px;
+      right: 22px;
+      border-radius: 20px;
+      height: auto;
+      max-height: 620px;
+    }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .wc-handle {
+    width: 36px; height: 4px;
+    background: #dde0e6;
+    border-radius: 2px;
+    margin: 8px auto 4px;
+    flex-shrink: 0;
+    cursor: grab;
+  }
+
+  /* ── Header ── */
+  .wc-header {
+    background: var(--black);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    border-bottom: 3px solid var(--brand);
+  }
+  .wc-avatar {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .wc-hinfo { flex: 1; min-width: 0; }
+  .wc-htitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .wc-htitle-brand { color: var(--brand); font-weight: 800; }
+  .wc-online {
+    width: 7px; height: 7px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: blink 2s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes blink {
+    0%,100% { opacity:1; } 50% { opacity:.4; }
+  }
+  .wc-offline { background: #999; animation: none; }
+  .wc-hsub {
+    font-size: 11px;
+    color: rgba(255,255,255,.6);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .wc-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .wc-close, .wc-clear {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.12);
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s;
+    flex-shrink: 0;
+  }
+  .wc-close:hover { background: rgba(255,98,0,.35); }
+  .wc-clear:hover { background: rgba(255,60,60,.35); }
+
+  /* ══════════════════════════
+     TELA DE AUTH
+  ══════════════════════════ */
+  #wcAuth {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px 20px;
+    background: #f8f9fb;
+    gap: 0;
+    overflow-y: auto;
+  }
+
+  .auth-logo {
+    width: 56px; height: 56px;
+    background: var(--black);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 14px;
+    flex-shrink: 0;
+  }
+
+  .auth-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--black);
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .auth-title span { color: var(--brand); }
+
+  .auth-sub {
+    font-size: 12px;
+    color: #777;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    max-width: 280px;
+  }
+
+  /* Tabs login / registrar */
+  .auth-tabs {
+    display: flex;
+    width: 100%;
+    max-width: 320px;
+    background: #eee;
+    border-radius: 10px;
+    padding: 3px;
+    margin-bottom: 18px;
+    flex-shrink: 0;
+  }
+  .auth-tab {
+    flex: 1;
+    padding: 7px 0;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    color: #888;
+    cursor: pointer;
+    transition: background .18s, color .18s;
+    font-family: inherit;
+  }
+  .auth-tab.active {
+    background: #fff;
+    color: var(--black);
+    box-shadow: 0 1px 4px rgba(0,0,0,.10);
+  }
+
+  /* Formulário */
+  .auth-form {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .auth-field label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #555;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+  }
+  .auth-field input {
+    padding: 10px 12px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 9px;
+    font-size: 13.5px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--black);
+    transition: border-color .15s;
+    outline: none;
+    width: 100%;
+  }
+  .auth-field input:focus { border-color: var(--brand); }
+  .auth-field input::placeholder { color: #bbb; }
+
+  .auth-hint {
+    font-size: 10.5px;
+    color: #aaa;
+    margin-top: -4px;
+    padding-left: 2px;
+  }
+
+  .auth-btn {
+    width: 100%;
+    padding: 11px 0;
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 4px;
+    transition: filter .15s, transform .12s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .auth-btn:hover:not(:disabled) { filter: brightness(1.08); transform: scale(1.01); }
+  .auth-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .auth-error {
+    background: #fff1f1;
+    border: 1px solid #fed7d7;
+    color: #c53030;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 12px;
+    line-height: 1.5;
+    display: none;
+  }
+  .auth-error.show { display: block; }
+
+  .auth-success {
+    background: #f0fff4;
+    border: 1px solid #9ae6b4;
+    color: #276749;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 12px;
+    line-height: 1.5;
+    display: none;
+    text-align: center;
+  }
+  .auth-success.show { display: block; }
+
+  /* User badge no header quando logado */
+  .wc-user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+  .wc-user-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .wc-user-name {
+    font-size: 12px;
+    color: rgba(255,255,255,.85);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Botão sair no header */
+  .wc-logout {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+    color: rgba(255,255,255,.7);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .wc-logout:hover { background: rgba(255,60,60,.3); color: #fff; }
+
+  /* ── Mensagens ── */
+  #wcMessages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background: var(--bg-chat);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    scroll-behavior: smooth;
+  }
+  #wcMessages::-webkit-scrollbar { width: 4px; }
+  #wcMessages::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+  /* Tela de boas-vindas */
+  .wc-welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 10px 16px;
+    gap: 8px;
+    animation: fadeIn .4s ease;
+  }
+  .wc-welcome-icon {
+    width: 64px; height: 64px;
+    background: var(--black);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 4px;
+  }
+  .wc-welcome h3 { font-size: 16px; color: var(--black); font-weight: 800; }
+  .wc-welcome h3 span { color: var(--brand); }
+  .wc-welcome p  { font-size: 12.5px; color: #666; line-height: 1.5; max-width: 280px; }
+
+  .wc-faq { width: 100%; margin-top: 8px; }
+  .wc-faq-label {
+    font-size: 10px; font-weight: 800; letter-spacing: 1px;
+    color: var(--brand); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .wc-faq-list { display: flex; flex-direction: column; gap: 6px; }
+  .wc-faq-btn {
+    background: #fff;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 9px 12px;
+    text-align: left;
+    font-size: 12.5px;
+    color: var(--black);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background .15s, border-color .15s, transform .12s, color .15s;
+    line-height: 1.3;
+    font-family: inherit;
+  }
+  .wc-faq-btn:hover {
+    background: var(--brand-lt);
+    border-color: var(--brand);
+    color: var(--brand);
+    transform: translateX(3px);
+  }
+
+  /* ── Separador de data ── */
+  .wc-date-sep {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+  }
+  .wc-date-sep::before, .wc-date-sep::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #dde0e6;
+  }
+  .wc-date-sep span {
+    font-size: 10px;
+    color: #aaa;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ── Mensagem ── */
+  .wc-msg {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    animation: fadeIn .22s ease;
+    max-width: 86%;
+  }
+  .wc-msg.user  { align-self: flex-end;  align-items: flex-end; }
+  .wc-msg.ia    { align-self: flex-start; align-items: flex-start; }
+  .wc-msg.restored { animation: none; }
+
+  .wc-lbl {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #999;
+    padding: 0 3px;
+  }
+  .wc-msg.user .wc-lbl { color: var(--brand); }
+  .wc-msg.ia   .wc-lbl { color: #777; }
+
+  .wc-bubble {
+    padding: 11px 14px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+  .wc-msg.user .wc-bubble {
+    background: var(--brand);
+    color: #fff;
+    border-radius: 14px 0 14px 14px;
+    font-weight: 500;
+  }
+  .wc-msg.ia .wc-bubble {
+    background: var(--bubble-ia);
+    color: #fff;
+    border-radius: 0 14px 14px 14px;
+  }
+  .wc-msg.ia .wc-bubble.err {
+    background: #fff;
+    color: #c53030;
+    border: 1px solid #fed7d7;
+  }
+  .wc-time { font-size: 9.5px; color: #bbb; padding: 0 3px; }
+
+  /* Typing dots */
+  .wc-typing {
+    display: flex; gap: 4px;
+    padding: 12px 14px;
+    background: var(--bubble-ia);
+    border-radius: 0 14px 14px 14px;
+    width: fit-content;
+  }
+  .wc-typing span {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--brand);
+    animation: tdot 1.1s infinite ease-in-out;
+  }
+  .wc-typing span:nth-child(2) { animation-delay: .15s; }
+  .wc-typing span:nth-child(3) { animation-delay: .30s; }
+  @keyframes tdot {
+    0%,80%,100% { transform:translateY(0); opacity:.3; }
+    40%          { transform:translateY(-5px); opacity:1; }
+  }
+
+  /* ── Input ── */
+  .wc-composer {
+    border-top: 1px solid #e8eaed;
+    background: #fff;
+    padding: 10px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .wc-composer-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  #wcInput {
+    flex: 1;
+    resize: none;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 13.5px;
+    font-family: inherit;
+    background: #f8f9fb;
+    color: #1a1a1a;
+    max-height: 96px;
+    min-height: 40px;
+    line-height: 1.4;
+    transition: border-color .15s, background .15s;
+    outline: none;
+  }
+  #wcInput:focus { border-color: var(--brand); background: #fff; }
+  #wcInput::placeholder { color: #aaa; }
+  #wcSend {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: var(--brand);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform .15s, filter .15s;
+  }
+  #wcSend:hover:not(:disabled)  { filter: brightness(1.1); transform: scale(1.05); }
+  #wcSend:disabled { opacity: .4; cursor: not-allowed; }
+
+  .wc-powered {
+    text-align: center;
+    font-size: 10px;
+    color: #bbb;
+    letter-spacing: 0.3px;
+  }
+  .wc-powered b { color: var(--brand); font-weight: 700; }
+
+  /* ── Toast ── */
+  #wcToast {
+    position: fixed;
+    bottom: 92px; right: 22px;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 9px 14px;
+    border-left: 3px solid var(--brand);
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-family: inherit;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s, transform .25s;
+    transform: translateY(6px);
+    z-index: 9999;
+    max-width: 260px;
+  }
+  #wcToast.show { opacity: 1; transform: translateY(0); }
+  #wcToast.ok   { border-left-color: #4ade80; }
+  #wcToast.err  { border-left-color: #e53e3e; }
+
+  /* ── Modal confirmação limpar ── */
+  #wcClearModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.55);
+    animation: fadeIn .2s ease;
+  }
+  #wcClearModal.active { display: flex; }
+  .wc-modal-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 20px;
+    width: 90%;
+    max-width: 300px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,.22);
+  }
+  .wc-modal-box h4 { font-size: 15px; color: #1a1a1a; margin-bottom: 8px; }
+  .wc-modal-box p  { font-size: 12.5px; color: #666; margin-bottom: 18px; line-height: 1.5; }
+  .wc-modal-btns   { display: flex; gap: 10px; justify-content: center; }
+  .wc-modal-btns button {
+    flex: 1; padding: 9px 0; border-radius: 9px; border: none;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: filter .15s; font-family: inherit;
+  }
+  .wc-modal-btns button:hover { filter: brightness(.92); }
+  .wc-btn-cancel  { background: #f0f0f0; color: #444; }
+  .wc-btn-confirm { background: #e53e3e; color: #fff; }
+
+  /* ── Responsivo mobile pequeno ── */
+  @media (max-width: 360px) {
+    #wcPanel { max-height: 100dvh; border-radius: 0; }
+    .auth-form { max-width: 100%; }
+    .auth-tabs { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Botão flutuante ── -->
+<button id="wcBtn" aria-label="Abrir chat">
+  <img src="suporte.png" alt="" class="wc-button-icon"
+       onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+  <span class="wc-btn-fallback" style="display:none">⚡</span>
+  <span id="wcBadge" class="hidden">1</span>
+</button>
+
+<!-- ── Overlay ── -->
+<div id="wcOverlay"></div>
+
+<!-- ── Painel principal ── -->
+<div id="wcPanel" role="dialog" aria-label="Chat Iberdrola Assistente">
+  <div class="wc-handle" id="wcHandle"></div>
+
+  <!-- Header — estado padrão (antes do login) -->
+  <div class="wc-header" id="wcHeader">
+    <div class="wc-avatar">⚡</div>
+    <div class="wc-hinfo" id="wcHinfo">
+      <div class="wc-htitle">
+        <span class="wc-htitle-brand">IBERDROLA</span>&nbsp;Assistente
+        <span class="wc-online" id="wcDot"></span>
+      </div>
+      <div class="wc-hsub" id="wcSub">Verificando conexão…</div>
+    </div>
+    <div class="wc-header-actions" id="wcHeaderActions">
+      <button class="wc-close" id="wcClose" aria-label="Fechar chat">✕</button>
+    </div>
+  </div>
+
+  <!-- ══ TELA DE AUTH ══ -->
+  <div id="wcAuth">
+    <div class="auth-logo">⚡</div>
+    <div class="auth-title">Bem-vindo à <span>Iberdrola</span></div>
+    <div class="auth-sub">Entre ou crie sua conta para acessar o assistente de energia inteligente.</div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin"    onclick="switchTab('login')">Entrar</button>
+      <button class="auth-tab"        id="tabRegister" onclick="switchTab('register')">Registrar</button>
+    </div>
+
+    <!-- Form Login -->
+    <div class="auth-form" id="formLogin">
+      <div class="auth-field">
+        <label for="loginNome">Nome</label>
+        <input id="loginNome" type="text" placeholder="Seu nome completo" autocomplete="name" />
+      </div>
+      <div class="auth-field">
+        <label for="loginPin">PIN</label>
+        <input id="loginPin" type="password" placeholder="4 a 6 dígitos" maxlength="6" autocomplete="current-password" />
+      </div>
+      <div class="auth-error" id="loginError"></div>
+      <button class="auth-btn" id="btnLogin" onclick="doLogin()">
+        <span id="loginBtnTxt">Entrar</span>
+      </button>
+    </div>
+
+    <!-- Form Register -->
+    <div class="auth-form" id="formRegister" style="display:none">
+      <div class="auth-field">
+        <label for="regNome">Nome</label>
+        <input id="regNome" type="text" placeholder="Seu nome completo" autocomplete="name" />
+      </div>
+      <div class="auth-field">
+        <label for="regPin">PIN</label>
+        <input id="regPin" type="password" placeholder="4 a 6 dígitos" maxlength="6" autocomplete="new-password" />
+        <div class="auth-hint">Crie um PIN numérico de 4 a 6 dígitos para acessos futuros.</div>
+      </div>
+      <div class="auth-error"   id="regError"></div>
+      <div class="auth-success" id="regSuccess"></div>
+      <button class="auth-btn" id="btnRegister" onclick="doRegister()">
+        <span id="registerBtnTxt">Criar conta</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ ÁREA DO CHAT (oculta antes do login) ══ -->
+  <div id="wcChatArea" style="display:none;flex:1;flex-direction:column;overflow:hidden">
+    <div id="wcMessages"></div>
+
+    <div class="wc-composer">
+      <div class="wc-composer-row">
+        <textarea id="wcInput" placeholder="Escreva a sua mensagem…" rows="1"></textarea>
+        <button id="wcSend" aria-label="Enviar">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+      <div class="wc-powered">Powered by <b>Iberdrola AI</b></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal confirmação limpar ── -->
+<div id="wcClearModal">
+  <div class="wc-modal-box">
+    <h4>🗑️ Limpar conversa?</h4>
+    <p>Todo o histórico de mensagens será apagado permanentemente.</p>
+    <div class="wc-modal-btns">
+      <button class="wc-btn-cancel"  id="wcClearCancel"  onclick="$('wcClearModal').classList.remove('active')">Cancelar</button>
+      <button class="wc-btn-confirm" id="wcClearConfirm" onclick="clearConfirm()">Limpar</button>
+    </div>
+  </div>
+</div>
+
+<div id="wcToast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   CONFIG
+   ATENÇÃO: a chave abaixo fica visível no código-fonte
+   da página para qualquer visitante (F12 -> Ver código).
+   Ela só "protege" o backend se VALID_API_KEYS, no
+   ambiente do seu Hugging Face Space, contiver
+   exatamente este mesmo valor.
+═══════════════════════════════════════════════════ */
+const WC_API      = 'https://iaagente-dono.hf.space';
+const WC_API_KEY  = 'Sx7jK2q9vLZ0pRtN4bY8wF3uAeH6mVfGzQh1cO2a';
+const STORAGE_KEY = 'iberdrola_chat_history';
+const AUTH_KEY     = 'iberdrola_auth';
+const MAX_STORED   = 80;
+
+/* Timeouts calibrados para o pipeline real do backend:
+   Qdrant -> fallback FAISS -> fallback Firestore -> 1-3 chamadas Groq
+   sequenciais (até 30s cada no modo C de auto-crítica). */
+const TIMEOUT_HEALTH = 15000;
+const TIMEOUT_AUTH   = 20000;
+const TIMEOUT_CHAT   = 75000;
+const TIMEOUT_SESSION = 12000;
+
+/* ══ Estado global ══ */
+const state = {
+  open:       false,
+  online:     false,
+  healthFails: 0,
+  sending:    false,
+  badgeCount: 0,
+  uid:        null,
+  userName:   null,
+  sessionId:  null,
+  chatHistory: [],   // {role, content} para enviar ao backend
+};
+
+/* ══ Helpers ══ */
+const $ = id => document.getElementById(id);
+
+/* ── Toast ── */
+let toastTimer;
+function toast(msg, type = '') {
+  const t = $('wcToast');
+  t.textContent = msg;
+  t.className   = 'show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.className = '', 3500);
+}
+
+/* ── Fetch com timeout (sem API key — backend decide autenticação) ── */
+async function apiFetch(path, opts = {}, timeoutMs = 30000) {
+  try {
+    const res = await fetch(WC_API + path, {
+      ...opts,
+      signal: AbortSignal.timeout(timeoutMs),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': WC_API_KEY,
+        ...(opts.headers || {}),
+      },
+    });
+    let json = null;
+    try { json = await res.json(); } catch (_) {}
+    return { ok: res.ok, status: res.status, json };
+  } catch (err) {
+    return { ok: false, status: 0, json: null, error: err.message, aborted: err.name === 'TimeoutError' };
+  }
+}
+
+/* ══ Status / Health (tolerante a falha única) ══ */
+function setOnline(ok) {
+  if (ok) {
+    state.healthFails = 0;
+    state.online = true;
+  } else {
+    state.healthFails++;
+    /* só marca offline depois de 2 falhas consecutivas, evita "flapping" */
+    if (state.healthFails >= 2) state.online = false;
+  }
+  const dot = $('wcDot');
+  if (dot) dot.className = 'wc-online' + (state.online ? '' : ' wc-offline');
+  const sub = $('wcSub');
+  if (sub && state.uid) {
+    sub.textContent = state.online ? 'Online ' : 'Reconectando…';
+  }
+  const sendBtn = $('wcSend');
+  if (sendBtn) sendBtn.disabled = !state.online || state.sending;
+}
+
+async function checkHealth() {
+  try {
+    const r = await fetch(WC_API + '/health', {
+      headers: { 'X-API-Key': WC_API_KEY },
+      signal: AbortSignal.timeout(TIMEOUT_HEALTH),
+    });
+    setOnline(r.ok);
+  } catch { setOnline(false); }
+}
+checkHealth();
+setInterval(checkHealth, 30000);
+
+/* ══ Persistência local — auth ══ */
+function authSave() {
+  try {
+    localStorage.setItem(AUTH_KEY, JSON.stringify({
+      uid:      state.uid,
+      userName: state.userName,
+      sessionId: state.sessionId,
+    }));
+  } catch (_) {}
+}
+function authLoad() {
+  try {
+    const raw = localStorage.getItem(AUTH_KEY);
+    if (!raw) return false;
+    const d = JSON.parse(raw);
+    if (d.uid && d.userName) {
+      state.uid      = d.uid;
+      state.userName = d.userName;
+      state.sessionId = d.sessionId || null;
+      return true;
+    }
+  } catch (_) {}
+  return false;
+}
+function authClear() {
+  try { localStorage.removeItem(AUTH_KEY); } catch (_) {}
+  state.uid = state.userName = state.sessionId = null;
+  state.chatHistory = [];
+}
+
+/* ══ Persistência local — histórico de mensagens ══ */
+function histLoad() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY + '_' + (state.uid || 'anon'));
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+function histSave(history) {
+  try {
+    localStorage.setItem(
+      STORAGE_KEY + '_' + (state.uid || 'anon'),
+      JSON.stringify(history.slice(-MAX_STORED))
+    );
+  } catch (_) {}
+}
+function histClear() {
+  try { localStorage.removeItem(STORAGE_KEY + '_' + (state.uid || 'anon')); } catch (_) {}
+}
+
+/* ══ Tabs auth ══ */
+function switchTab(tab) {
+  const isLogin = tab === 'login';
+  $('tabLogin').classList.toggle('active', isLogin);
+  $('tabRegister').classList.toggle('active', !isLogin);
+  $('formLogin').style.display    = isLogin ? 'flex' : 'none';
+  $('formRegister').style.display = isLogin ? 'none' : 'flex';
+  $('loginError').classList.remove('show');
+  $('regError').classList.remove('show');
+  $('regSuccess').classList.remove('show');
+}
+
+/* ── Enter nos inputs de auth ── */
+['loginNome','loginPin'].forEach(id => {
+  $(id).addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+});
+['regNome','regPin'].forEach(id => {
+  $(id).addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
+});
+
+/* ══ LOGIN (com 1 retry automático em caso de falha de rede) ══ */
+async function doLogin() {
+  const nome = $('loginNome').value.trim();
+  const pin  = $('loginPin').value.trim();
+  const errEl = $('loginError');
+  errEl.classList.remove('show');
+
+  if (!nome) { showAuthErr(errEl, 'Por favor, informe seu nome.'); return; }
+  if (!pin || pin.length < 4) { showAuthErr(errEl, 'PIN deve ter 4 a 6 dígitos.'); return; }
+
+  setAuthLoading('login', true);
+  let res = await apiFetch('/login', {
+    method: 'POST',
+    body: JSON.stringify({ nome, pin }),
+  }, TIMEOUT_AUTH);
+
+  if (!res.ok && res.status === 0) {
+    /* falha de rede/timeout — tenta mais uma vez antes de desistir */
+    await new Promise(r => setTimeout(r, 1200));
+    res = await apiFetch('/login', {
+      method: 'POST',
+      body: JSON.stringify({ nome, pin }),
+    }, TIMEOUT_AUTH);
+  }
+  setAuthLoading('login', false);
+
+  if (res.ok && res.json) {
+    state.uid      = res.json.uid;
+    state.userName = res.json.nome || nome;
+    await ensureSession();
+    authSave();
+    onLoggedIn();
+    toast('Bem-vindo, ' + state.userName + '!', 'ok');
+  } else if (res.status === 0) {
+    showAuthErr(errEl, 'Não foi possível conectar ao servidor. Tente novamente em alguns segundos.');
+  } else {
+    const msg = res.json?.detail || 'Credenciais inválidas. Verifique nome e PIN.';
+    showAuthErr(errEl, msg);
+  }
+}
+
+/* ══ REGISTER (com 1 retry automático) ══ */
+async function doRegister() {
+  const nome  = $('regNome').value.trim();
+  const pin   = $('regPin').value.trim();
+  const errEl = $('regError');
+  const okEl  = $('regSuccess');
+  errEl.classList.remove('show');
+  okEl.classList.remove('show');
+
+  if (!nome) { showAuthErr(errEl, 'Por favor, informe seu nome.'); return; }
+  if (!pin || pin.length < 4) { showAuthErr(errEl, 'PIN deve ter 4 a 6 dígitos.'); return; }
+
+  setAuthLoading('register', true);
+  let res = await apiFetch('/register', {
+    method: 'POST',
+    body: JSON.stringify({ nome, pin }),
+  }, TIMEOUT_AUTH);
+
+  if (!res.ok && res.status === 0) {
+    await new Promise(r => setTimeout(r, 1200));
+    res = await apiFetch('/register', {
+      method: 'POST',
+      body: JSON.stringify({ nome, pin }),
+    }, TIMEOUT_AUTH);
+  }
+  setAuthLoading('register', false);
+
+  if (res.ok && res.json) {
+    state.uid      = res.json.uid;
+    state.userName = nome;
+    okEl.textContent = '✅ Conta criada! Entrando…';
+    okEl.classList.add('show');
+    await ensureSession();
+    authSave();
+    setTimeout(() => { onLoggedIn(); toast('Conta criada! Bem-vindo(a), ' + state.userName + '!', 'ok'); }, 800);
+  } else if (res.status === 0) {
+    showAuthErr(errEl, 'Não foi possível conectar ao servidor. Tente novamente em alguns segundos.');
+  } else {
+    const detail = res.json?.detail || '';
+    if (res.status === 409) {
+      showAuthErr(errEl, 'Este nome já está registado. Use a aba Entrar.');
+    } else {
+      showAuthErr(errEl, detail || 'Erro ao criar conta. Tente novamente.');
+    }
+  }
+}
+
+function showAuthErr(el, msg) {
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function setAuthLoading(type, loading) {
+  if (type === 'login') {
+    $('btnLogin').disabled   = loading;
+    $('loginBtnTxt').textContent = loading ? 'Entrando…' : 'Entrar';
+  } else {
+    $('btnRegister').disabled    = loading;
+    $('registerBtnTxt').textContent = loading ? 'Criando conta…' : 'Criar conta';
+  }
+}
+
+/* ══ SESSÃO — cria e, se falhar, permite recriação automática depois ══ */
+async function ensureSession(forceNew = false) {
+  if (state.sessionId && !forceNew) return state.sessionId;
+  const url = '/session/create' + (state.uid ? '?user_id=' + encodeURIComponent(state.uid) : '');
+  const res = await apiFetch(url, { method: 'POST', body: '{}' }, TIMEOUT_SESSION);
+  if (res.ok && res.json?.session_id) {
+    state.sessionId = res.json.session_id;
+    authSave();
+  }
+  return state.sessionId;
+}
+
+/* ══ Após login bem-sucedido: montar UI ══ */
+function onLoggedIn() {
+  /* Substitui o hinfo do header */
+  const hinfo = $('wcHinfo');
+  hinfo.innerHTML = `
+    <div class="wc-user-info">
+      <div class="wc-user-avatar">${state.userName.charAt(0).toUpperCase()}</div>
+      <div>
+        <div class="wc-htitle" style="font-size:13px">${escHtml(state.userName)} <span class="wc-online" id="wcDot"></span></div>
+        <div class="wc-hsub" id="wcSub">${state.online ? 'Online ' : 'Reconectando…'}</div>
+      </div>
+    </div>`;
+
+  /* Botões no header: limpar + logout + fechar */
+  $('wcHeaderActions').innerHTML = `
+    <button class="wc-logout" title="Sair" aria-label="Sair">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+    </button>
+    <button class="wc-clear" title="Limpar conversa" aria-label="Limpar conversa">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.4"
+           stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 6 5 6 21 6"/>
+        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+        <path d="M10 11v6M14 11v6"/>
+        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+      </svg>
+    </button>
+    <button class="wc-close" id="wcClose" aria-label="Fechar chat">✕</button>`;
+
+  /* Mostra área de chat, oculta auth */
+  $('wcAuth').style.display     = 'none';
+  $('wcChatArea').style.display = 'flex';
+
+  /* Garante que wcMessages ocupa o espaço certo */
+  const msgs = $('wcMessages');
+  msgs.style.flex       = '1';
+  msgs.style.overflowY  = 'auto';
+  msgs.style.padding    = '16px';
+  msgs.style.background = 'var(--bg-chat)';
+  msgs.style.display    = 'flex';
+  msgs.style.flexDirection = 'column';
+  msgs.style.gap        = '14px';
+  msgs.style.scrollBehavior = 'smooth';
+
+  /* Carrega histórico e reconstrói chatHistory para o backend */
+  const stored = histLoad();
+  state.chatHistory = stored.map(m => ({
+    role:    m.role === 'user' ? 'user' : 'assistant',
+    content: m.text,
+  }));
+  renderFullHistory();
+
+  /* Foca input */
+  setTimeout(() => { try { $('wcInput').focus(); } catch (_) {} }, 200);
+}
+
+/* ══ LOGOUT ══ */
+function doLogout() {
+  authClear();
+
+  /* Restaura header padrão */
+  $('wcHinfo').innerHTML = `
+    <div class="wc-htitle">
+      <span class="wc-htitle-brand">IBERDROLA</span>&nbsp;Assistente
+      <span class="wc-online" id="wcDot"></span>
+    </div>
+    <div class="wc-hsub" id="wcSub">${state.online ? 'Online ' : 'Verificando conexão…'}</div>`;
+  $('wcHeaderActions').innerHTML = `<button class="wc-close" id="wcClose" aria-label="Fechar">✕</button>`;
+  checkHealth();
+
+  /* Limpa chat e volta para auth */
+  $('wcMessages').innerHTML = '';
+  $('wcChatArea').style.display = 'none';
+  $('wcAuth').style.display     = 'flex';
+
+  /* Limpa campos */
+  $('loginNome').value = '';
+  $('loginPin').value  = '';
+  $('regNome').value   = '';
+  $('regPin').value    = '';
+  switchTab('login');
+
+  toast('Sessão encerrada.', '');
+}
+
+/* ══ ABRIR / FECHAR ══ */
+function openChat() {
+  state.open = true;
+  $('wcPanel').classList.add('active');
+  $('wcOverlay').classList.add('active');
+  $('wcBtn').classList.add('hidden');
+  state.badgeCount = 0;
+  $('wcBadge').classList.add('hidden');
+  setTimeout(() => {
+    if (state.uid) {
+      try { $('wcInput').focus(); } catch (_) {}
+    } else {
+      try { $('loginNome').focus(); } catch (_) {}
+    }
+    scrollBottom();
+  }, 300);
+}
+function closeChat() {
+  state.open = false;
+  $('wcPanel').classList.remove('active');
+  $('wcOverlay').classList.remove('active');
+  $('wcBtn').classList.remove('hidden');
+}
+
+$('wcBtn').addEventListener('click', openChat);
+$('wcOverlay').addEventListener('click', closeChat);
+
+/* ══ Delegação de eventos no header — funciona mesmo após innerHTML ══ */
+$('wcHeader').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  if (btn.id === 'wcClose'       || btn.classList.contains('wc-close'))   closeChat();
+  if (btn.classList.contains('wc-logout'))                                 doLogout();
+  if (btn.classList.contains('wc-clear'))  $('wcClearModal').classList.add('active');
+});
+
+/* ══ Limpar conversa ══ */
+function clearConfirm() {
+  $('wcClearModal').classList.remove('active');
+  histClear();
+  state.chatHistory = [];
+  renderFullHistory();
+  toast('Conversa apagada.', 'ok');
+}
+
+/* ══ Drag-to-close mobile ══ */
+let dragStart = 0, dragCurrent = 0, dragging = false;
+const handle = $('wcHandle'), panel = $('wcPanel');
+handle.addEventListener('touchstart', e => {
+  dragging  = true;
+  dragStart = e.touches[0].clientY;
+  panel.style.transition = 'none';
+});
+handle.addEventListener('touchmove', e => {
+  if (!dragging) return;
+  dragCurrent = e.touches[0].clientY - dragStart;
+  if (dragCurrent > 0) panel.style.transform = `translateY(${dragCurrent}px)`;
+});
+handle.addEventListener('touchend', () => {
+  dragging = false;
+  panel.style.transition = '';
+  panel.style.transform  = '';
+  if (dragCurrent > 90) closeChat();
+  dragCurrent = 0;
+});
+
+/* ══ Input textarea ══ */
+const inp = $('wcInput');
+inp.addEventListener('input', () => {
+  inp.style.height = 'auto';
+  inp.style.height = Math.min(inp.scrollHeight, 96) + 'px';
+});
+inp.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+$('wcSend').addEventListener('click', () => sendMessage());
+
+/* ══ Helpers DOM ══ */
+function escHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]);
+}
+function nowTime() {
+  return new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+}
+function scrollBottom() {
+  const m = $('wcMessages');
+  if (m) m.scrollTop = m.scrollHeight;
+}
+function formatDateLabel(iso) {
+  const d    = new Date(iso);
+  const hoje = new Date();
+  const ontem = new Date(); ontem.setDate(ontem.getDate() - 1);
+  if (d.toDateString() === hoje.toDateString())  return 'Hoje';
+  if (d.toDateString() === ontem.toDateString()) return 'Ontem';
+  return d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' });
+}
+
+/* ══ Render: welcome ══ */
+function renderWelcome() {
+  const msgs = $('wcMessages');
+  msgs.innerHTML = `
+    <div class="wc-welcome" id="wcWelcome">
+      <div class="wc-welcome-icon">⚡</div>
+      <h3>Olá, <span>${escHtml(state.userName || '')}</span>!</h3>
+      <p>O seu assistente de energia inteligente. Tire dúvidas sobre investimentos, planos, saques e muito mais.</p>
+      <div class="wc-faq">
+        <div class="wc-faq-label">Perguntas frequentes</div>
+        <div class="wc-faq-list" id="wcFaqList">
+          <button class="wc-faq-btn" data-q="Como funciona a plataforma?">⚡ Como funciona a plataforma?</button>
+          <button class="wc-faq-btn" data-q="Paga mesmo?">💰 Paga mesmo?</button>
+          <button class="wc-faq-btn" data-q="Como é feita a conversão de megawatts?">🔄 Como é feita a conversão?</button>
+          <button class="wc-faq-btn" data-q="Como vincular minha conta para saque?">🏦 Como vincular minha conta?</button>
+        </div>
+      </div>
+    </div>`;
+  $('wcFaqList').addEventListener('click', e => {
+    const btn = e.target.closest('.wc-faq-btn');
+    if (btn) sendMessage(btn.dataset.q);
+  });
+}
+
+/* ══ Render: histórico completo ══ */
+function renderFullHistory() {
+  const history = histLoad();
+  if (!history.length) { renderWelcome(); return; }
+
+  const msgs = $('wcMessages');
+  msgs.innerHTML = '';
+  let lastLabel = '';
+  history.forEach(item => {
+    const label = formatDateLabel(item.ts);
+    if (label !== lastLabel) {
+      lastLabel = label;
+      const sep = document.createElement('div');
+      sep.className = 'wc-date-sep';
+      sep.innerHTML = `<span>${label}</span>`;
+      msgs.appendChild(sep);
+    }
+    _appendMsgDOM(item.role, item.text, item.time, item.isErr || false, true);
+  });
+  scrollBottom();
+}
+
+/* ══ Render: uma mensagem no DOM ══ */
+function _appendMsgDOM(role, text, timeStr, isErr, restored) {
+  const msgs = $('wcMessages');
+  const wrap = document.createElement('div');
+  wrap.className = 'wc-msg ' + role + (restored ? ' restored' : '');
+
+  const lbl = document.createElement('div');
+  lbl.className = 'wc-lbl';
+  lbl.textContent = role === 'user' ? 'Você' : 'IBERDROLA';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'wc-bubble' + (isErr ? ' err' : '');
+  bubble.textContent = text;
+
+  const time = document.createElement('div');
+  time.className = 'wc-time';
+  time.textContent = timeStr;
+
+  wrap.appendChild(lbl);
+  wrap.appendChild(bubble);
+  wrap.appendChild(time);
+  msgs.appendChild(wrap);
+  return wrap;
+}
+
+/* ══ Append: nova msg + persiste ══ */
+function appendMsg(role, text, isErr = false) {
+  const w = $('wcWelcome'); if (w) w.remove();
+  const timeStr   = nowTime();
+  const now       = new Date().toISOString();
+  const msgs      = $('wcMessages');
+  const history   = histLoad();
+  const dateLabel = formatDateLabel(now);
+  const lastItem  = history[history.length - 1];
+  const lastLabel = lastItem ? formatDateLabel(lastItem.ts) : '';
+
+  if (dateLabel !== lastLabel) {
+    const sep = document.createElement('div');
+    sep.className = 'wc-date-sep';
+    sep.innerHTML = `<span>${dateLabel}</span>`;
+    msgs.appendChild(sep);
+  }
+
+  _appendMsgDOM(role, text, timeStr, isErr, false);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  if (!isErr) {
+    history.push({ role, text, time: timeStr, ts: now });
+    histSave(history);
+  }
+}
+
+/* ══ Typing indicator ══ */
+function showTyping() {
+  const w = $('wcWelcome'); if (w) w.remove();
+  const msgs = $('wcMessages');
+  const wrap = document.createElement('div');
+  wrap.className = 'wc-msg ia'; wrap.id = 'wcTyping';
+  const lbl = document.createElement('div');
+  lbl.className = 'wc-lbl'; lbl.textContent = 'IBERDROLA';
+  const dots = document.createElement('div');
+  dots.className = 'wc-typing';
+  dots.innerHTML = '<span></span><span></span><span></span>';
+  wrap.appendChild(lbl); wrap.appendChild(dots);
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+function hideTyping() {
+  const t = $('wcTyping'); if (t) t.remove();
+}
+
+/* ══ ENVIO ══
+   Estratégia de retry:
+   - 1ª tentativa normal.
+   - Se falhar por timeout/rede: espera com backoff crescente e tenta de novo.
+   - Se a sessão parecer inválida (resposta 404/expirada), recria a sessão
+     automaticamente e tenta mais uma vez antes de desistir.
+   - Só desiste e mostra erro ao usuário após esgotar as tentativas.
+*/
+async function sendMessage(text) {
+  if (!state.uid) { toast('Faça login para enviar mensagens.', 'err'); return; }
+  const q = (text || inp.value).trim();
+  if (!q) return;
+  if (state.sending) return;
+
+  state.sending = true;
+  inp.value = ''; inp.style.height = 'auto';
+  $('wcSend').disabled = true;
+
+  appendMsg('user', q);
+  showTyping();
+
+  /* Acumula histórico para o backend */
+  state.chatHistory.push({ role: 'user', content: q });
+  const historico = state.chatHistory.slice(-20);
+
+  const payload = {
+    texto:              q,
+    historico:          historico,
+    max_tokens:         512,
+    temperature:        0.2,
+    top_p:              0.9,
+    usar_rag:           true,
+    top_k:              8,
+    do_refine:          true,
+    refine_mode:        'S',
+    persist_refinement: true,
+    nome_utilizador:    state.userName || undefined,
+  };
+
+  const maxAttempts = 3;
+  let attempt = 0;
+  let lastWasTimeout = false;
+
+  while (attempt < maxAttempts) {
+    attempt++;
+    const qp = [];
+    if (state.sessionId) qp.push('session_id=' + encodeURIComponent(state.sessionId));
+    if (state.uid)       qp.push('uid='        + encodeURIComponent(state.uid));
+
+    try {
+      const r = await fetch(WC_API + '/chat' + (qp.length ? '?' + qp.join('&') : ''), {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'X-API-Key': WC_API_KEY },
+        body:    JSON.stringify(payload),
+        signal:  AbortSignal.timeout(TIMEOUT_CHAT),
+      });
+
+      /* Sessão pode ter expirado/sumido no backend — recria e tenta de novo */
+      if (r.status === 404 || r.status === 401) {
+        let detail = '';
+        try { const j = await r.json(); detail = j.detail || ''; } catch (_) {}
+        if (attempt < maxAttempts) {
+          state.sessionId = null;
+          await ensureSession(true);
+          continue;
+        }
+        throw new Error(`${r.status}: ${detail || 'Sessão inválida'}`);
+      }
+
+      if (!r.ok) {
+        let detail = r.statusText;
+        try { const j = await r.json(); detail = j.detail || detail; } catch (_) {}
+        throw new Error(`${r.status}: ${detail}`);
+      }
+
+      const data = await r.json();
+      hideTyping();
+      setOnline(true);
+
+      const resposta = data.resposta || '(sem resposta)';
+      appendMsg('ia', resposta);
+
+      state.chatHistory.push({ role: 'assistant', content: resposta });
+      if (data.nome_utilizador && !state.userName) {
+        state.userName = data.nome_utilizador;
+        authSave();
+      }
+
+      if (!state.open) {
+        state.badgeCount++;
+        $('wcBadge').textContent = state.badgeCount;
+        $('wcBadge').classList.remove('hidden');
+      }
+      state.sending = false;
+      $('wcSend').disabled = !state.online;
+      try { inp.focus(); } catch (_) {}
+      return;
+
+    } catch (err) {
+      lastWasTimeout = err.name === 'TimeoutError';
+      if (attempt < maxAttempts) {
+        /* backoff crescente: 1s, depois 2.5s — dá tempo de o backend
+           terminar a cadeia Qdrant/FAISS/Groq antes de tentar de novo */
+        await new Promise(r => setTimeout(r, attempt === 1 ? 1000 : 2500));
+        continue;
+      }
+      /* esgotou as tentativas */
+      state.chatHistory.pop();
+      hideTyping();
+      const msg = lastWasTimeout
+        ? 'A IA está demorando mais que o esperado. Tente novamente em instantes.'
+        : 'Erro ao conectar. Verifique sua conexão e tente novamente.';
+      appendMsg('ia', '⚠️ ' + msg, true);
+      toast(msg, 'err');
+      setOnline(false);
+      setTimeout(checkHealth, 3000);
+    }
+  }
+
+  state.sending = false;
+  $('wcSend').disabled = !state.online;
+  try { inp.focus(); } catch (_) {}
+}
+
+/* ══ INIT ══ */
+(function init() {
+  if (authLoad()) {
+    /* Sessão salva — entra direto no chat */
+    ensureSession().then(() => {
+      onLoggedIn();
+    });
+  }
+})();
+</script>
+</body>
+</html>
